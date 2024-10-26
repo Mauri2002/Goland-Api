@@ -45,3 +45,39 @@ func main() {
 	fmt.Println("Servidor corriendo en el puerto 8080...")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
+
+// Crear la tabla si no existe
+func createTable() {
+	sqlStmt := `
+	CREATE TABLE IF NOT EXISTS proyectos (
+		numero_control VARCHAR(255) PRIMARY KEY,
+		nombre_alumno VARCHAR(255),
+		carrera VARCHAR(255),
+		nombre_proyecto VARCHAR(255)
+	);`
+	_, err := db.Exec(sqlStmt)
+	if err != nil {
+		log.Fatalf("%q: %s\n", err, sqlStmt)
+	}
+}
+
+// Obtener todos los proyectos
+func GetAllProyectos(w http.ResponseWriter, r *http.Request) {
+	rows, err := db.Query("SELECT numero_control, nombre_alumno, carrera, nombre_proyecto FROM proyectos")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var proyectos []Proyecto
+	for rows.Next() {
+		var p Proyecto
+		if err := rows.Scan(&p.NumeroControl, &p.NombreAlumno, &p.Carrera, &p.NombreProyecto); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		proyectos = append(proyectos, p)
+	}
+	json.NewEncoder(w).Encode(proyectos)
+}
