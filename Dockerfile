@@ -11,6 +11,6 @@ COPY *go ./
 
 RUN go build 
 
-EXPOSE 8080
+EXPOSE 5050
 
 CMD ["/app/RestApiPract1"]
