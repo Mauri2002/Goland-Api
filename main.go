@@ -81,3 +81,40 @@ func GetAllProyectos(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(proyectos)
 }
+
+// Obtener un proyecto por número de control
+func GetProyectoByID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	numeroControl := vars["numero_control"]
+
+	var p Proyecto
+	err := db.QueryRow("SELECT numero_control, nombre_alumno, carrera, nombre_proyecto FROM proyectos WHERE numero_control = ?", numeroControl).Scan(&p.NumeroControl, &p.NombreAlumno, &p.Carrera, &p.NombreProyecto)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			http.Error(w, "Proyecto no encontrado", http.StatusNotFound)
+		} else {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		return
+	}
+	json.NewEncoder(w).Encode(p)
+}
+
+// Crear un nuevo proyecto
+func CreateProyecto(w http.ResponseWriter, r *http.Request) {
+	var nuevoProyecto Proyecto
+	if err := json.NewDecoder(r.Body).Decode(&nuevoProyecto); err != nil {
+		http.Error(w, "Solicitud inválida", http.StatusBadRequest)
+		return
+	}
+
+	_, err := db.Exec("INSERT INTO proyectos (numero_control, nombre_alumno, carrera, nombre_proyecto) VALUES (?, ?, ?, ?)",
+		nuevoProyecto.NumeroControl, nuevoProyecto.NombreAlumno, nuevoProyecto.Carrera, nuevoProyecto.NombreProyecto)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(nuevoProyecto)
+}
