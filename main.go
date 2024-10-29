@@ -118,3 +118,17 @@ func CreateProyecto(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(nuevoProyecto)
 }
+
+// Eliminar un proyecto por número de control
+func DeleteProyecto(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	numeroControl := vars["numero_control"]
+
+	_, err := db.Exec("DELETE FROM proyectos WHERE numero_control = ?", numeroControl)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
