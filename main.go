@@ -1,3 +1,6 @@
+//Carlos Humberto Valadez Molina
+//Mauricio de Jesus Cardona Ramirez
+//Chistian Ernesto Silva Pedraza
 package main
 
 import (
