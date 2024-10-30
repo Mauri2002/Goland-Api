@@ -1,6 +1,11 @@
 # Goland-Api
 Api para proyectos de recidencias Go
 
+En en este repositorio se encontraran dos ramas la de "proceso" se puede mostrar el trabajo que agrego cada uno y en la rama main se muestra solo el producto final.
+
+para poder ver el trabajo de jenkins sera requerido ir a otro repositorio para que no se confundan los trabajos, ambos realizados por el equipo pero para mantener el orden se realizaron dos repositorios:
+link para ir al repode jenkins: https://github.com/CarlosHValadezM1/ApiRestGoJenkins.git
+
 Proceso del docker
 
 lo primero que tenemos que hacer es creado un archivo de nombre Dockerfile(debe usarse exactamente este nombre) Visual estudio identificara este como un docker
@@ -19,3 +24,12 @@ ahora solo nos resta usar el comando Docker run  <nombre_de_tu_imagen> para corr
 ![image](https://github.com/user-attachments/assets/8c18c187-a0b4-4ee9-925c-e5cde2ee7e0f)
 
 incluso si se desean ver mas caracteristicas se puede  hacer desde el programa Docker Desktop
+
+
+
+
+#Integrantes del grupo de trabajo:
+
+//Carlos Humberto Valadez Molina
+//Mauricio de Jesus Cardona Ramirez
+//Chistian Ernesto Silva Pedraza
