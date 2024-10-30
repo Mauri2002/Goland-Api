@@ -31,5 +31,7 @@ incluso si se desean ver mas caracteristicas se puede  hacer desde el programa D
 #Integrantes del grupo de trabajo:
 
 //Carlos Humberto Valadez Molina
+
 //Mauricio de Jesus Cardona Ramirez
+
 //Chistian Ernesto Silva Pedraza
